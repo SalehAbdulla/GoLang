@@ -1,15 +1,14 @@
 package main
 
 import (
-	"fmt" 
 	"sort"
+	"fmt"
 )
 
-func main() {
+func main2() {
     nums := []int {1, 2, 3, 4, 1};
 	fmt.Println(solutionOne(nums));
 	fmt.Println(solutionTwo(nums));
-
 	fmt.Println(solutionThree(nums));
 
 }

@@ -8,7 +8,7 @@ import (
 // Input: s = "racecar", t = "carrace"
 // Output: true
 
-func main() {
+func main2() {
 	s := "racecar"
 	t := "carrace"
 	fmt.Println(isValidAnagram(s, t))
