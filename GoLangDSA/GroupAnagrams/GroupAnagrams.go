@@ -5,35 +5,43 @@ import (
 	"sort"
 )
 
-func main(){
+func main() {
+	
 	strs := []string {"act","pots","tops","cat","stop","hat"}
-	groupAnagrams(strs)
+	solution := groupAnagrams(strs)	
+
+	fmt.Println(solution)
+
+
+
+
 }
 
+func groupAnagrams(strs []string) [][]string {
 
-func groupAnagrams(strings []string) [][]string {
-	hash := make(map[string][]string)
+	hashMap := make(map[string][]string)
 
-	for _, word := range strings {
-		key := sortWord(word)
-		hash[key] = append(hash[key],word)
+	for _, word := range strs {
+		sortedWord := sortString(word)
+		hashMap[sortedWord] = append(hashMap[sortedWord], word)
 	}
 
-	var result [][]string;
+	var result [][]string
+	for _, element := range hashMap {
+		result = append(result, element)
+	}
 
-	
-
+	return result
 }
 
 
-func sortWord(word string) string {
+func sortString(word string) string {
+
 	wordToRune := []rune(word)
 
-	// return void
 	sort.Slice(wordToRune, func(i, j int) bool {
 		return wordToRune[i] < wordToRune[j]
 	})
-
-	// converts it from rune intro string
+	
 	return string(wordToRune)
 }
