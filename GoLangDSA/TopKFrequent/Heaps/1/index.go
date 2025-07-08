@@ -34,6 +34,7 @@ func (h *MaxHeap) MaxHeapifyDown(firstIndex int) {
 	// while leftChild <= lastIndex 
 	for leftChild <= lastIndex {
 		// Decide which to compare with
+		// if rightChild > lastIndex means there is no right element
 		if rightChild > lastIndex {
 			childToCompare = leftChild
 		} else if h.array[leftChild] > h.array[rightChild] {
@@ -41,6 +42,7 @@ func (h *MaxHeap) MaxHeapifyDown(firstIndex int) {
 		} else {
 			childToCompare = rightChild
 		}
+
 		// then we can swap
 		if h.array[firstIndex] < h.array[childToCompare] {
 			h.swap(firstIndex, childToCompare)
@@ -52,7 +54,6 @@ func (h *MaxHeap) MaxHeapifyDown(firstIndex int) {
 		}
 
 	}
-
 
 }
 
@@ -103,4 +104,7 @@ func main() {
 	h.Insert(49)
 	h.Insert(59)
 	fmt.Println(h.array)
+	fmt.Println(h.extract())
+	fmt.Println(h.array)
 }
+
