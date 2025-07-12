@@ -6,42 +6,44 @@ import (
 )
 
 func main(){
-
+	orginal := []string {"neet","code","loves","you"}
+	encoded := encoding(orginal)
+	fmt.Println(encoded)
+	decoded := decode(encoded) 
+	fmt.Println(decoded)
 }
 
-
-func encode(strs []string) string {
+func encoding(strs []string) string {
+	// Turn it into 4#word4#word
 	result := ""
 	for _, word := range strs {
-		// len(str) + "#" + str 5#Hello
-		encoded := strconv.Itoa(len(word)) + "#" + word
-		result += encoded
-	} 
+		encodedWord := strconv.Itoa(len(word)) + "#" + word
+		result += encodedWord
+	}
 	return result
 }
 
 func decode(encoded string) []string {
 	result := []string{}
 
-	i := 0
+	leftPointer := 0 // i pointer
+	for leftPointer < len(encoded) {
 
-	for i < len(encoded) {
-		j := i
-		
-		for encoded[j] != '#' {
-			j++
+		rightPointer := leftPointer
+
+		for encoded[rightPointer] != '#'{
+			rightPointer++
 		}
 
-		length, _ := strconv.Atoi(encoded[i:j])
-		
-		i = j + 1
-		result = append(result, encoded[i:i + length])
-		i += length
+		// extract the number from the word   from 0 index till #
+		wordSize, _ := strconv.Atoi(encoded[leftPointer:rightPointer])
+		leftPointer = rightPointer + 1 // skips # Symbol
+
+		result = append(result, encoded[leftPointer:leftPointer+wordSize])
+		leftPointer += wordSize
+		fmt.Println(result)
 
 	}
 
 	return result
-
 }
-
-
