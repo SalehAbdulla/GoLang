@@ -31,7 +31,7 @@ func decode(encoded string) []string {
 
 		rightPointer := leftPointer
 
-		for encoded[rightPointer] != '#'{
+		for encoded[rightPointer] != '#' {
 			rightPointer++
 		}
 
