@@ -8,7 +8,6 @@ import (
 func main() {
 	nums := []int{1, 2, 2, 3, 3, 3}
 	k := 2
-
 	solution := topKFrequent(nums, k)
 	fmt.Println(solution)
 }
