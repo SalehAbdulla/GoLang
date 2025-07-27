@@ -30,6 +30,7 @@ func main() {
 	for _, char := range word {
 		if string(char) == wrongChar {
 			isExist = true
+			break
 		}
 	}
 
@@ -50,6 +51,7 @@ func main() {
 			result[i] = wrongCharToRune[0]
 		}
 	}
+	
 	// Print Result
 	for i := 0; i < 1; i++ {
 		for _, c := range result {

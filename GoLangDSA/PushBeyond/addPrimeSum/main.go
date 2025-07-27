@@ -62,6 +62,7 @@ func atoi(number string) int {
 	result := 0
 
 	for _, num := range number {
+		// Make sure we are dealing with real numbers
 		if !(num >= '0' && num <= '9') {
 			return 0
 		}
