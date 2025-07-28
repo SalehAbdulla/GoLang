@@ -1,20 +1,27 @@
 package main
 
-import (
-	"fmt"
-	"os"
-)
+import "fmt"
+
+func add(a int, b int) int {
+	return a + b
+}
+
+func multiply(a int, b int) int {
+	return a * b
+}
+
+func applyMultAdd(a int, b int, f func(int, int) int) int {
+	return f(a, b)
+}
 
 func main() {
-	fileName := os.Args[1:][0]
-	file, error := os.Open(fileName)
+
+	arrayFunction := []func(int, int) int{add, multiply}
 	
-	if error != nil {
-		fmt.Println(error)
-	} else {
-		data := make([]byte, 20)
-		file.Read(data)
-		fmt.Println(string(data))
-		file.Close()
-	}
+	sum := applyMultAdd(5, 3, arrayFunction[0])
+	product := applyMultAdd(5, 3, arrayFunction[1])
+
+	fmt.Println("The value of the sum, ", sum)
+	fmt.Println("The value of the product, ", product)
+
 }
