@@ -7,65 +7,92 @@ import (
 	"strings"
 )
 
-func findPairs(arr []int, target int) [][]int {
+func getPairs(nums []int, target int) [][]int {
+	used := make([]bool, len(nums))
 	pairs := [][]int{}
-	used := make(map[int]bool)
-	indexMap := make(map[int]int)
-
-	for i, v := range arr {
-		if j, ok := indexMap[target-v]; ok && !used[j] && !used[i] {
-			pairs = append(pairs, []int{j, i})
-			used[j], used[i] = true, true
+	for i := 0; i < len(nums); i++ {
+		if used[i] {
+			continue
 		}
-		indexMap[v] = i
+		for j := i + 1; j < len(nums); j++ {
+			if used[j] {
+				continue
+			}
+			if nums[i]+nums[j] == target {
+				pairs = append(pairs, []int{i, j})
+				used[i], used[j] = true, true
+				break
+			}
+		}
 	}
-	
 	return pairs
 }
 
+func parseArray(nums string) []int {
+	getRidOfSquareBrackets := strings.Trim(nums, "[]")
+	splitByComma := strings.Split(getRidOfSquareBrackets, ",")
+	var result []int
+	for _, ele := range splitByComma {
+		num := strings.TrimSpace(ele)
+		if num == "" {
+			continue
+		}
+		n, _ := strconv.Atoi(num)
+		result = append(result, n)
+	}
+	return result
+}
+
 func main() {
-	if len(os.Args) != 3 {
-		fmt.Println("Invalid input.")
-		return
+	args := os.Args[1:]
+	if len(args) != 2 {
+		fmt.Println("Invalid input."); return
+	}
+ 
+	nums := args[0]
+	target := args[1]
+
+	// 3 Validation ---------------------- No [], invalid nums, invalid target
+	// $ go run . "[1, 2, 3, 4" "5"
+	// Invalid input.
+	if nums[0] != '[' || nums[len(nums)-1] != ']' {
+		fmt.Println("Invalid input."); return
 	}
 
-	arrStr, targetStr := os.Args[1], os.Args[2]
-	if len(arrStr) < 2 || arrStr[0] != '[' || arrStr[len(arrStr)-1] != ']' {
-		fmt.Println("Invalid input.")
-		return
-	}
-
-	numStrs := strings.Split(strings.Trim(arrStr, "[]"), ",")
-	arr := make([]int, 0, len(numStrs))
-	for _, s := range numStrs {
-		s = strings.TrimSpace(s)
-		if s == "" {
-			fmt.Println("Invalid input.")
+	// $ go run . "[1, 2, 3, 4, 20, p, 5]" "5"
+	// Invalid number: p
+	for _, char := range nums {
+		// [] , space, numbers, '-'
+		if char == '[' || char == ']' || char == ' ' || char == ',' || char == '-' || (char >= '0' && char <= '9') {
+			continue
+		} else {
+			fmt.Println("Invalid number:", string(char))
 			return
 		}
-		n, err := strconv.Atoi(s)
-		if err != nil {
-			fmt.Printf("Invalid number: %s\n", s)
-			return
+	}
+
+	// $ go run . "[1, 2, 3, 4, 20, -4, 5]" "2 5"
+	// Invalid target sum.
+	for _, char := range target {
+		if (char >= '0' && char <= '9') || char == '-' {
+			continue
+		} else {
+			fmt.Println("Invalid target sum."); return
 		}
-		arr = append(arr, n)
 	}
 
-	if strings.Contains(targetStr, " ") {
-		fmt.Println("Invalid target sum.")
-		return
-	}
+	// Parsing -------------------------
 
-	target, err := strconv.Atoi(targetStr)
-	if err != nil {
-		fmt.Println("Invalid target sum.")
-		return
-	}
-	// --------------
-	pairs := findPairs(arr, target)
+	numsInt := parseArray(nums)
+	targetInt, _ := strconv.Atoi(target)
+
+	// Solution -------------------------
+
+	pairs := getPairs(numsInt, targetInt)
 	if len(pairs) == 0 {
 		fmt.Println("No pairs found.")
 	} else {
-		fmt.Printf("Pairs with sum %d: %v\n", target, pairs)
+		fmt.Printf("Pairs with sum %d: %v\n", targetInt, pairs)
 	}
 }
+

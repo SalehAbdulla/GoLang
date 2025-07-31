@@ -20,6 +20,6 @@ func ZipString(s string) string {
 		}
 	}
     
-	result += strconv.Itoa(count) + string(runes[len(runes)-1])
+	result += strconv.Itoa(count) + string(runes[len(runes)-1]) // lastChar will be missed
 	return result
 }
