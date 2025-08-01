@@ -30,4 +30,5 @@ func IsPrime(num int) bool {
 
 func main() {
 	fmt.Println(FindPrevPrime(5))
+	
 }
