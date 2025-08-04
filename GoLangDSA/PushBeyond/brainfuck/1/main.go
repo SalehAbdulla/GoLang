@@ -1,66 +1,53 @@
 package main
 
 import (
-	"os"
+    "os"
     "github.com/01-edu/z01"
 )
 
-const SIZE = 2048
+func main(){    
+    args := os.Args[1:]
+    if len(args) != 1 {return}
+    
+    code := args[0]
+    tape := [2048]byte{}
+    ptr := 0
 
-func main() {
-	if len(os.Args) != 2 {
-		return
-	}
-	progpoint := []byte(os.Args[1])
-	var arby [SIZE]byte
-	pos := 0
-	openBr := 0         // opened brackets
-	i := 0              // iterates through the source code passed in the argument
-	N := len(progpoint) // length of the source code
-	for i >= 0 && i < N {
-		switch progpoint[i] {
-		case '>':
-			// Increment the pointer
-			pos++
-		case '<':
-			// decrement the pointes
-			pos--
-		case '+':
-			// increment the pointed byte
-			arby[pos]++
-		case '-':
-			// decrement the pointed byte
-			arby[pos]--
-		case '.':
-			// print the pointed byte on std output
-			z01.PrintRune(rune(arby[pos]))
-		case '[':
-			// go to the matching ']' if the pointed byte is 0 (while start)
-			openBr = 0
-			if arby[pos] == 0 {
-				for i < N && (progpoint[i] != byte(']') || openBr > 1) {
-					if progpoint[i] == byte('[') {
-						openBr++
-					} else if progpoint[i] == byte(']') {
-						openBr--
-					}
-					i++
-				}
-			}
-		case ']':
-			// go to the matching '[' if the pointed byte is not 0 (while end)
-			openBr = 0
-			if arby[pos] != 0 {
-				for i >= 0 && (progpoint[i] != byte('[') || openBr > 1) {
-					if progpoint[i] == byte(']') {
-						openBr++
-					} else if progpoint[i] == byte('[') {
-						openBr--
-					}
-					i--
-				}
-			}
-		}
-		i++
-	}
+    for i := 0; i < len(code); i++ {
+        switch code[i]{
+            case '>':
+                ptr++
+            case '<':
+                ptr--
+            case '+':
+                tape[ptr]++
+            case '-':
+                tape[ptr]--
+            case '.':
+                z01.PrintRune(rune(tape[ptr]))
+            case '[':
+                if tape[ptr] == 0 { // No loop when current value is zero
+                    loop := 1
+                    for loop > 0 {
+                        i++ // Jump Forward
+                        if code[i] == '[' {loop++} // Another nested loop, skip
+                        if code[i] == ']' {loop--} // we found the exist bracket
+                    }
+                }
+            case ']':
+                if tape[ptr] != 0 { // no Exist if current cell is not equal to zero
+                    loop := 1
+                    for loop > 0{
+                        i-- // Go Backward
+                        if code[i] == ']'{ // another exit loop Bracket, skip
+                            loop++
+                        }
+                        if code[i] == '[' {
+                            loop--
+                        }
+                    }
+                }
+        
+        }
+    }
 }
