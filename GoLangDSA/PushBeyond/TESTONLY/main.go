@@ -2,36 +2,40 @@ package main
 
 import "fmt"
 
+
 type NodeList struct {
-	Val  int
-	next *NodeList
+	val int // The only data holds
+	next *NodeList // for chaining
 }
 
-func Insert(nodeList *NodeList, val int) *NodeList {
-	newNode := &NodeList{Val: val}
+func InsertBeginning(nodeList *NodeList, val int) *NodeList {
+	newNode := &NodeList{val:val} // like new node() in Java; Go holds location explicitly
 	if nodeList == nil {
 		return newNode
 	} else {
-		// I'm Taking the prev list, and chain it with new one
 		newNode.next = nodeList
 		return newNode
 	}
 }
 
+
 func PrintNode(nodeList *NodeList) {
-	for nodeList.next != nil {
-		fmt.Print(nodeList.Val, " -> ")
+	for nodeList != nil {
+		fmt.Print(nodeList.val, " -> ")
 		nodeList = nodeList.next
 	}
 	fmt.Println("nil")
 }
 
-func main() {
-	nodeList := &NodeList{}
-	nodeList = Insert(nodeList, 1)
-	nodeList = Insert(nodeList, 2)
-	nodeList = Insert(nodeList, 3)
-	nodeList = Insert(nodeList, 4)
-	PrintNode(nodeList)
-}
+func main(){
 
+	var nodeList *NodeList = nil
+	nodeList = InsertBeginning(nodeList, 9)
+	nodeList = InsertBeginning(nodeList, 8)
+	nodeList = InsertBeginning(nodeList, 7)
+	nodeList = InsertBeginning(nodeList, 6)
+	PrintNode(nodeList)
+
+
+
+}
