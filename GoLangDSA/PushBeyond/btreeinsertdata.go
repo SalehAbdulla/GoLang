@@ -10,13 +10,13 @@ func BTreeInsertData(root *TreeNode, data string) *TreeNode {
 	if data < root.Data {
 		if root.Left == nil {
 			root.Left = &TreeNode{Data:data, Parent: root}
-		} else { // Go to left deeper until nil leaf reached
+		} else {
 			BTreeInsertData(root.Left, data)
 		}
 	} else {
 		if root.Right == nil {
 			root.Right = &TreeNode{Data:data, Parent: root}
-		} else { // Go deeper to the right until we reach nil leaf
+		} else {
 			BTreeInsertData(root.Right, data)
 		}
 	}
