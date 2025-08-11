@@ -10,17 +10,17 @@ import (
 func FindPairs(nums []int, target int) [][]int {
     var result [][]int
     used := make(map[int]bool)
-    for i := 0; i < len(nums); i++ {
-        if used[i] {continue}
-        for j := i + 1; j < len(nums); j++ {
-            if used[j] {continue}
-            if nums[i] + nums[j] == target {
-                result = append(result, []int{i, j})
+	complements := make(map[int]int)
+	for i, n := range nums {
+		if complementIndex, ok := complements[n]; ok {
+			if !used[complementIndex] && !used[i] {
+				result = append(result, []int{complementIndex, i})
+				used[complementIndex] = true
 				used[i] = true
-				used[j] = true
-            }
-        }
-    }
+			}
+		}
+		complements[target-n] = i
+	}
     return result
 }
 
