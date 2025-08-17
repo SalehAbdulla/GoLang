@@ -30,6 +30,7 @@ func main(){
     var intNums []int
     for _, n := range strNumsToSlice {
 		if n != " "{
+			n = strings.TrimSpace(n)
 			nToInt, err := strconv.Atoi(n)
 			if err != nil {fmt.Println("Invalid number: ", n); return}
 			intNums = append(intNums, nToInt)
@@ -39,7 +40,7 @@ func main(){
     intTarget, err := strconv.Atoi(strTarget)
     if err != nil {fmt.Println("Invalid target sum."); return}
     result := FindPairs(intNums, intTarget)
-    fmt.Println(result)
+    fmt.Printf("Pairs with sum %d: %v\n", intTarget, result)
 }
 
 
