@@ -8,11 +8,13 @@ func ItoaBase(value, base int) string {
 	var uValue uint64
 	var ubase uint64
 	isNegative := value < 0
+	
 	if isNegative {
 		uValue = uint64(-int64(value))
 	} else {
 		uValue = uint64(value)
 	}
+
 	ubase = uint64(base)
 
 	var result string
