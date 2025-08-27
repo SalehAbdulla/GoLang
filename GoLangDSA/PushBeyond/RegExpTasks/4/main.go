@@ -10,9 +10,12 @@ func main() {
 	data, err := os.ReadFile("sample.txt")
 	if err != nil {fmt.Println("Error reading file:", err); return}
 	text := string(data)
-	fmt.Println(text)
 
-	re, err := regexp.Compile(`(?im)world\r?$`) // \r because of windows
+
+
+	// fmt.Println(text)
+
+	re, err := regexp.Compile(`(?im)world\r?$`) // \r? because of windows adding \r\n
 	if err != nil {
 		fmt.Println("Error compiling regex:", err)
 		return
