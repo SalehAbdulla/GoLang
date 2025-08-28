@@ -9,21 +9,28 @@ import (
 func main() {
 	text, err := os.ReadFile("sample.txt")
 	if err != nil {
-		fmt.Println("Error Reading file")
+		fmt.Println("Error reading file")
 		return
 	}
 	data := string(text)
 
-	regExp, err := regexp.Compile(`\(`)
+	// ----------
+
+	// (    cap)
+	// (low,3)
+	// (up, 10)
+	// (trim-text, 2)
+
+	regExp, err := regexp.Compile(`\(\s*([^\s(),]+)\s*(?:,\s*(\d+))?\s*\)`)
+
 	if err != nil {
-		fmt.Println("Error Compiling reqexp", err.Error())
+		fmt.Println(err.Error())
 		return
 	}
-
 	matches := regExp.FindAllString(data, -1)
 
 	for i, match := range matches {
-		fmt.Printf("%d: %\n", i+1, match)
+		fmt.Printf("%d: %s \n", i+1, match)
 	}
 
 }

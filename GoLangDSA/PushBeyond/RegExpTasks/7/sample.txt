@@ -1,0 +1,4 @@
+(cap)
+(low,3)
+(up, 10)
+(trim-text,2)
