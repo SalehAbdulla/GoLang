@@ -18,8 +18,6 @@ func IsVowel(r rune) bool {
 	return r == 'a' || r == 'e' || r == 'u' || r == 'o' || r == 'i' || r == 'A' || r == 'E' || r == 'U' || r == 'O' || r == 'I'
 }
 
-
-
 // FixVowels Logic ---------------------
 
 func FixVowels(s string) string {
@@ -42,12 +40,4 @@ func FixVowels(s string) string {
 	}
 	return strings.Join(lines, "\n")
 }
-
-
-
-
-
-
-
-
 

@@ -45,5 +45,4 @@ func main(){
     Print(getFirstWord)
     Print("\n")
 
-    
 }

@@ -5,7 +5,6 @@ import (
 	"fmt"
 )
 
-
 func main(){
 	text := "Hello \t     \r\n   , World!"
 	cmd := `\s+([.,!?;:])`
