@@ -1,2 +1,1 @@
-an apple
-a banana
+'a apple'
