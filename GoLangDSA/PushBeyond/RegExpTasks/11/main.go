@@ -23,34 +23,6 @@ func main() {
 	fmt.Println(textToSlice)
 }
 
-// func main() {
-// 	s := "' apple                           ' g '"
-
-// 	i := 0
-// 	for {
-// 		start := strings.Index(s[i:], "'")
-// 		if start == -1 {
-// 			break
-// 		}
-// 		start += i
-
-// 		end := strings.Index(s[start+1:], "'")
-// 		if end == -1 {
-// 			break
-// 		}
-// 		end += start + 1
-
-// 		inside := strings.TrimSpace(s[start+1 : end])
-// 		s = s[:start] + "'" + inside + "'" + s[end+1:]
-
-// 		i = start + len(inside) + 2
-// 	}
-
-// 	fmt.Println(s)
-// }
 
 
 
-
-
-[]
