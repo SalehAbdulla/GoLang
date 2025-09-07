@@ -9,6 +9,7 @@ import (
 func main(){
     args := os.Args[1:]
     if len(args) == 0 {fmt.Println("options: abcdefghijklmnopqrstuvwxyz"); return}
+
     var options uint32 
     for _, arg := range args {
         if len(arg) < 2 || arg[0] != '-' {fmt.Println("Invalid Option"); return}
@@ -28,4 +29,5 @@ func main(){
         fmt.Print(bit)
     }
     fmt.Println()
+	
 }
