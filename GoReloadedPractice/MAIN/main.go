@@ -1,27 +1,25 @@
 package main
 
 import (
-	"log"
 	"os"
 	"reloaded"
+	"strings"
+	"log"
 )
 
 func main() {
 	args := os.Args[1:]
-	if len(args) != 2 {
-		log.Fatal("Arguments must be 2")
+	if len(args) != 2 {log.Fatal("Expected 2 arguments")}
+
+	if !strings.HasSuffix(args[0], ".txt") || !strings.HasSuffix(args[1], ".txt") {
+		log.Fatal("Text Files must end with .txt")
 	}
 
-	fileNameToMod := args[0]
+	userInput, err := os.ReadFile(args[0])
+	if err != nil {log.Fatal("Error reading file:", err.Error())}
 
-	data, err := os.ReadFile(fileNameToMod)
+	textResult := reloaded.ProcessCommands(string(userInput))
 
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-
-	result := reloaded.ProcessCommands(string(data))
-
-	err2 := os.WriteFile(args[1], []byte(result), 0644)
-	if err2 != nil {log.Fatal(err2.Error())}
+	err = os.WriteFile(args[1], []byte(textResult), 0666)
+	if err != nil {log.Fatal("Error writing file:", err.Error())}
 }
