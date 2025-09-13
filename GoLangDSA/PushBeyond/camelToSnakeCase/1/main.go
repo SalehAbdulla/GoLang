@@ -1,7 +1,5 @@
 package piscine
 
-
-
 func IsUpper(r rune) bool {
     if r >= 'A' && r <= 'Z' {return true}
     return false
