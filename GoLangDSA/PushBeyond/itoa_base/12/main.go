@@ -1,6 +1,5 @@
 package piscine
 
-
 const digits = "0123456789ABCDEF"
 
 func ItoaBase(value, base int) string {
