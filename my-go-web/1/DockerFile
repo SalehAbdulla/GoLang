@@ -1,0 +1,16 @@
+# Use the official Go Image 
+From golang:1.23-alpine
+
+# Add metadata (best practice)
+
+LABEL maintainder="nonemask1@gmail.com"
+LABEL project="go-web-docker"
+LABEL version="1.0"
+
+WORKDIR /app
+
+COPY . .
+
+RUN go build -o server
+
+CMD ["./server"]
