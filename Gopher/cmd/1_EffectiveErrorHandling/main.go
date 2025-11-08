@@ -8,14 +8,19 @@ import (
 
 var (
 	ErrorNotImplemented = errors.New("not implemented")
-	TrackNotFound       = errors.New("Track not found")
+	TrackNotFound       = errors.New("track not found")
 )
 
 type Truck struct {
-	id string
+	id    string
+	cargo int
 }
 
 func (t *Truck) LoadCargo() error {
+	return nil
+}
+
+func (t *Truck) UnloadCargo() error {
 	return nil
 }
 
@@ -39,7 +44,6 @@ func main() {
 	}
 
 	for _, truck := range trucks {
-		fmt.Println("Truck %s arrived.\n", truck.id)
 		if err := HandleTruck(truck); err != nil {
 			switch err {
 			case ErrorNotImplemented:
