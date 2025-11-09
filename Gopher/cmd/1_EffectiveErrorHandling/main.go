@@ -29,7 +29,7 @@ func HandleTruck(truck Truck) error {
 	fmt.Println("Processing truck: %s\n", truck.id)
 
 	if err := truck.LoadCargo(); err != nil {
-		return fmt.Errorf("Error cargo: %w", err)
+		return fmt.Errorf("error cargo: %w", err)
 	}
 
 	fmt.Printf("Process Truck: %s\n", truck)
