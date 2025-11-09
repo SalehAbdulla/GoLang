@@ -30,24 +30,24 @@ type ElectricTruck struct {
 }
 
 func (e *ElectricTruck) LoadCargo() error {
+	e.cargo -= 1
+	e.battery -= 2
+	return nil
+}
+
+func (e *ElectricTruck) UnloadCargo() error {
 	e.cargo += 1
 	e.battery += 1
 	return nil
 }
 
-func (e *ElectricTruck) UnloadCargo() error {
-	e.cargo = 0
-	e.battery = -1
-	return nil
-}
-
 func (t *NormalTruck) LoadCargo() error {
-	t.cargo += 2
+	t.cargo += 1
 	return nil
 }
 
 func (t *NormalTruck) UnloadCargo() error {
-	t.cargo = 0
+	t.cargo -= 1
 	return nil
 }
 
@@ -67,13 +67,14 @@ func main() {
 
 	// When we working with marsheling JSON
 	person := make(map[string]interface{}, 0) // or any 1.18 GO has intoduced
-	person["name"] = "Tiago"	
+	person["name"] = "Tiago"
 	person["age"] = 42
 
 	age, exists := person["age"].(int)
-	if !exists {log.Fatal("age does not exist")}
+	if !exists {
+		log.Fatal("age does not exist")
+	}
 	log.Println(age)
-
 
 	if err := processTruck(nt); err != nil {
 		log.Fatal(err.Error())
