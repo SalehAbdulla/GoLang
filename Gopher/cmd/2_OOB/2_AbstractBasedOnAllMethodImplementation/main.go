@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// Abstraction
 type Speaker interface {
 	Speak() error
 }
